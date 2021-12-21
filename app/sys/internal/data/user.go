@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 	"kratos-mall/app/sys/internal/biz"
 	"kratos-mall/app/sys/internal/data/model"
@@ -47,7 +48,9 @@ func (u userRepo) CreateUser(ctx context.Context, user *biz.UserDTO) error {
 func (u userRepo) GetUser(ctx context.Context, id int64) *biz.User {
 
 	var user model.SysUser
+	fmt.Println("目录：app/sys/internal/data/user.go")
 	_ = u.data.db.WithContext(ctx).Where("id=?", id).First(&user)
+	fmt.Println("目录：app/sys/internal/data/user.go  user:",user)
 
 	return &biz.User{
 		Id:       user.Id,

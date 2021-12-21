@@ -2,12 +2,12 @@ package sys
 
 import (
 	"context"
+	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
 	sysV1 "kratos-mall/api/sys/v1"
 	"kratos-mall/app/front/admin/internal/biz/sys"
 	"kratos-mall/app/front/admin/internal/data"
-	"kratos-mall/app/front/admin/internal/pkg/middleware"
 )
 
 type userRepo struct {
@@ -24,21 +24,29 @@ func NewUserRepo(data *data.Data, logger log.Logger) sys.UserRepo {
 }
 
 func (r *userRepo) Login(ctx context.Context, g *sys.LoginDTO) (*sys.LoginRespDTO, error) {
+	fmt.Println("目录：app/front/admin/internal/data/sys/user.go","参数：",g.UserName,g.Password)
 	login, _ := r.data.SysClient.Login(ctx, &sysV1.LoginReq{
 		UserName: g.UserName,
 		Password: g.Password,
 	})
-
-	token, _ := jwt.GenerateToken(login.Id, login.UserName)
+	fmt.Println("目录：app/front/admin/internal/data/sys/user.go",login)
+	//token, _ := jwt.GenerateToken(login.Id, login.UserName)
 
 	return &sys.LoginRespDTO{
-		Status:           login.Status,
+		/*Status:           login.Status,
 		CurrentAuthority: login.CurrentAuthority,
 		Id:               login.Id,
 		UserName:         login.UserName,
 		AccessToken:      token,
 		AccessExpire:     login.AccessExpire,
-		RefreshAfter:     login.RefreshAfter,
+		RefreshAfter:     login.RefreshAfter,*/
+		Status:           "1",
+		CurrentAuthority: "login.CurrentAuthority",
+		Id:               1,
+		UserName:         "admin",
+		AccessToken:      "test",
+		//AccessExpire:     login.AccessExpire,
+		//RefreshAfter:     login.RefreshAfter,
 	}, nil
 }
 

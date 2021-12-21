@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
 	"kratos-mall/app/sys/internal/biz"
@@ -40,6 +41,7 @@ func NewSysService(uc *biz.UserUseCase,
 }
 
 func (s *SysService) Login(ctx context.Context, req *pb.LoginReq) (*pb.LoginResp, error) {
+	fmt.Println("目录：app/sys/internal/service/sys.go","用户名:",req.UserName,"密码：",req.Password)
 	tokenDTO, _ := s.uc.UserLogin(ctx, &biz.UserDTO{
 		UserName: req.UserName,
 		Password: req.Password,

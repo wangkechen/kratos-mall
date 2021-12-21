@@ -2,6 +2,7 @@ package biz
 
 import (
 	"context"
+	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -92,7 +93,7 @@ func NewUserUseCase(userRepo UserRepo, menuRepo MenuRepo, logger log.Logger) *Us
 }
 
 func (u *UserUseCase) UserLogin(ctx context.Context, userDTO *UserDTO) (*TokenDTO, error) {
-
+	fmt.Println("目录：app/sys/internal/biz/user.go","用户名：",userDTO.UserName)
 	user := u.userRepo.QueryUserByName(ctx, userDTO.UserName)
 
 	return &TokenDTO{
