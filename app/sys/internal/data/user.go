@@ -27,7 +27,10 @@ func NewUserRepo(data *Data, logger log.Logger) biz.UserRepo {
 func (u userRepo) QueryUserByName(ctx context.Context, name string) *biz.User {
 
 	var user model.SysUser
-	_ = u.data.db.WithContext(ctx).Where("name=?", name).First(&user)
+	fmt.Println("data>>>>user.go",name)
+	u.log.WithContext(ctx).Info("data>>>>user.go",name)
+	err := u.data.db.WithContext(ctx).Where("name=?", name).First(&user)
+	fmt.Println("err:",err)
 
 	return &biz.User{
 		Id:       user.Id,
